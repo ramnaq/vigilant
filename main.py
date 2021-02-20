@@ -1,9 +1,15 @@
 import ply.lex as lex
-import ply.yacc as yacc
 
 
 # Create reserved words
 reserved = {
+    'int': 'INT',
+    'float': 'FLOAT',
+    'string': 'STRING',
+    'const int': 'INT_CONSTANT',
+    'const float': 'FLOAT_CONSTANT',
+    'const string': 'STRING_CONSTANT',
+
     'if': 'IF',
     'then': 'THEN',
     'else': 'ELSE',
@@ -19,13 +25,10 @@ reserved = {
 
 # Create tokens
 tokens = [
-    'FLOAT',
-    'FLOAT_CONSTANT',
-    'INT',
-    'INT_CONSTANT',
+    'LITERAL_FLOAT',
+    'LITERAL_INT',
+    'LITERAL_STRING',
     'IDENT',
-    'STRING',
-    'STRING_CONSTANT',
     'PLUS',
     'MINUS',
     'MULTIPLY',
@@ -33,6 +36,7 @@ tokens = [
     'MODULE',
     'EQUALS_EQUALS',
     'EQUALS',
+    'NOT_EQUAL',
     'LPAREN',  # 'left parenthesis'
     'RPAREN',
     'LCBRACKET',  # 'left curly bracket'
@@ -43,7 +47,8 @@ tokens = [
     'LT',
     'GTE',
     'GT',
-    'END'  # end of line
+    'SEMICOLON',
+    'COMMA'
 ] + list(reserved.values())  # Add reserved words into tokens' list
 
 # Regular expression rules for simple tokens
@@ -53,7 +58,8 @@ t_MULTIPLY = r'\*'
 t_DIVIDE = r'\\'
 t_MODULE = r'%'
 t_EQUALS_EQUALS = r'=='  # '==' must be set before '!='
-t_EQUALS = r'!='
+t_EQUALS = r'='
+t_NOT_EQUAL = r'!='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LCBRACKET = r'{'
@@ -64,54 +70,36 @@ t_LTE = r'<='
 t_LT = r'<'
 t_GTE = r'>='
 t_GT = r'>'
-t_END = r'\;'
+t_SEMICOLON = r'\;'
+t_COMMA = r','
 t_ignore = r' '  # Ignores spaces
 
 
 # Regular expression rules for complex tokens
 
 # Floats must be set before ints
-def t_FLOAT(t):
-    r'\d\.\d+'
-    t.value = float(t.value)
-    return t
-
-
-# Floats must be set before ints
-def t_FLOAT_CONSTANT(t):
-    r'\d\.\d+'
+def t_LITERAL_FLOAT(t):
+    r'\d+\.\d+'
     t.value = float(t.value)
     return t
 
 
 # Ints must be set after floats
-def t_INT(t):
-    r'\d+'  # Any characters whose length is more than 0
+def t_LITERAL_INT(t):
+    r'\d+'  # Any numeric character whose length is more than 0
     t.value = int(t.value)
     return t
 
 
-def t_INT_CONSTANT(t):
-    r'\d+'
-    t.value = int(t.value)
+def t_LITERAL_STRING(t):
+    r'".*"'
+    t.type = reserved.get(t.value, 'STRING')  # Check for reserved words
     return t
 
 
 def t_IDENT(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'  # The first char has to be a letter
-    t.type = reserved.get(t.value, 'IDENT')  # Check for reserved words
-    return t
-
-
-def t_STRING(t):
-    r'".*"'
+    r'[a-zA-Z_]+[a-zA-Z0-9_]*'  # The first char has to be a letter
     t.type = reserved.get(t.value, 'IDENT')
-    return t
-
-
-def t_STRING_CONSTANT(t):
-    r'".*"'  # The first char has to be a letter
-    t.type = reserved.get(t.value, 'IDENT')  # Check for reserved words
     return t
 
 
@@ -132,8 +120,14 @@ def t_error(t):
 
 lexer = lex.lex()  # Creates lex
 
-# Receive input from the program
-lexer.input('(1.2 + 2) * 4 {} break new new read >= <=')
+# Receive input
+# executa as:
+#   python3 main.py
+#   file_name
+file_name = input()
+f = open(file_name, 'r')
+data = f.read()
+lexer.input(data)
 
 while True:  # Prints the tokens
     tok = lexer.token()

@@ -1,0 +1,118 @@
+def calculate_fine(string has_driving_license, int alcohol_level, int speed, int n_passengers)
+{
+  float fine;
+  fine = 0.0;
+
+  if (has_driving_license == "no") {
+    fine = fine + 500.0;
+  }
+
+  if (alcohol_level == 2) {
+    fine = fine + 400.0;
+  } else if (alcohol_level == 3) {
+    fine = fine + 800.0;
+  } else if (alcohol_level == 4) {
+    fine = fine + 1600.0;
+  } else if (alcohol_level == 5) {
+    fine = fine + 3200.0;
+  }
+
+  if (speed > 120) {
+    fine = fine + 1000.0;
+  } else if (speed > 100) {
+    fine = fine + 500.0;
+  } else if (speed > 80) {
+    fine = fine + 250.0;
+  } else if (speed > 60) {
+    fine = fine + 125.5;
+  } else if (speed > 40) {
+    fine = fine + 62.75;
+  }
+
+  if (n_passangers == 2) {
+    fine = fine * 2;
+  } else if (n_passangers == 3) {
+    fine = fine * 3;
+  } else if (n_passangers == 4) {
+    fine = fine * 4;
+  } else if (n_passangers == 5) {
+    fine = fine * 5;
+  } else {
+    fine = fine * 10;
+  }
+
+  return fine;
+}
+
+def calculate_fine(float fine, string has_driving_license, int driving_lincense_points)
+{
+  if (has_driving_license == "no") {
+    print("You are under arrest");
+    return -1;
+  }
+
+  if (fine >= 10000.0) {
+    print("You lost 10 points");
+    driving_lincense_points = driving_lincense_points - 10;
+  } else if (fine >= 8500.0) {
+    print("You lost 9 points");
+    driving_lincense_points = driving_lincense_points - 9;
+  } else if (fine >= 7000.0) {
+    print("You lost 8 points");
+    driving_lincense_points = driving_lincense_points - 8;
+  } else if (fine >= 5500.0) {
+    print("You lost 7 points");
+    driving_lincense_points = driving_lincense_points - 7;
+  } else if (fine >= 4000.0) {
+    print("You lost 6 points");
+    driving_lincense_points = driving_lincense_points - 6;
+  } else if (fine >= 2500.0) {
+    print("You lost 5 points");
+    driving_lincense_points = driving_lincense_points - 5;
+  } else if (fine >= 2000.0) {
+    print("You lost 4 points");
+    driving_lincense_points = driving_lincense_points - 4;
+  } else if (fine >= 1500.0) {
+    print("You lost 3 points");
+    driving_lincense_points = driving_lincense_points - 3;
+  } else if (fine >= 1000.0) {
+    print("You lost 2 points");
+    driving_lincense_points = driving_lincense_points - 2;
+  } else if (fine >= 500.0) {
+    print("You lost 1 point");
+    driving_lincense_points = driving_lincense_points - 1;
+  } else if (fine > 0) {
+    print("You didn't lose any points, but have to pay the fine");
+  } else {
+    print("You didn't lose any points, and don't have to pay any fine");
+  }
+
+  if (driving_lincense_points <= 0) {
+    print("You are under arrest");
+  } else {
+    print("You are good to go");
+  }
+
+  return driving_lincense_points;
+}
+
+def traffic_ticket_calc()
+{
+  print("Traffic ticket calculator, change the numbers below");
+
+  string has_driving_license;
+  int alcohol_level;
+  int speed;
+  int n_passengers;
+  int driving_lincense_points
+  float fine;
+
+  has_driving_license = "no";
+  alcohol_level = 1;
+  speed = 35;
+  n_passengers = 2;
+  driving_lincense_points = 10;
+
+  fine = calculate_fine(has_driving_license, alcohol_level, speed, n_passengers);
+  driving_lincense_points = check_arrest(fine, has_driving_license, driving_lincense_points);
+}
