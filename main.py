@@ -34,8 +34,8 @@ tokens = [
     'MULTIPLY',
     'DIVIDE',
     'MODULE',
-    'EQUALS_EQUALS',
     'EQUALS',
+    'ASSIGN',
     'NOT_EQUAL',
     'LPAREN',  # 'left parenthesis'
     'RPAREN',
@@ -57,8 +57,8 @@ t_MINUS = r'-'
 t_MULTIPLY = r'\*'
 t_DIVIDE = r'\\'
 t_MODULE = r'%'
-t_EQUALS_EQUALS = r'=='  # '==' must be set before '!='
-t_EQUALS = r'='
+t_EQUALS = r'=='  # '==' must be set before '!='
+t_ASSIGN = r'='
 t_NOT_EQUAL = r'!='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
