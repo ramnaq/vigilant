@@ -128,8 +128,6 @@ file_name = sys.argv[1]
 with open(file_name, 'r') as f:
     lexer.input(f.read())
 
-while True:  # Prints the tokens
-    tok = lexer.token()
-    if not tok:
-        break
-    print(tok)
+for token in lexer:
+    print(token)
+
