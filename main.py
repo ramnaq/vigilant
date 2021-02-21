@@ -119,15 +119,6 @@ def t_error(t):
     raise SyntaxError('Error at line %d, position %d' % (t.lineno, t.lexpos))
 
 
-
-if len(sys.argv) != 2:
-    exit('Usage: python main.py <program.ccc>')
-
-lexer = lex.lex()
-file_name = sys.argv[1]
-with open(file_name, 'r') as f:
-    lexer.input(f.read())
-
-for token in lexer:
-    print(token)
+if __name__ == '__main__':
+    lex.runmain(lexer=lex.lex())
 
