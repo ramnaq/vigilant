@@ -1,3 +1,4 @@
+import sys
 import ply.lex as lex
 
 
@@ -118,16 +119,14 @@ def t_error(t):
     raise SyntaxError('Error at line %d, position %d' % (t.lineno, t.lexpos))
 
 
-lexer = lex.lex()  # Creates lex
 
-# Receive input
-# executa as:
-#   python3 main.py
-#   file_name
-file_name = input()
-f = open(file_name, 'r')
-data = f.read()
-lexer.input(data)
+if len(sys.argv) != 2:
+    exit('Usage: python main.py <program.ccc>')
+
+lexer = lex.lex()
+file_name = sys.argv[1]
+with open(file_name, 'r') as f:
+    lexer.input(f.read())
 
 while True:  # Prints the tokens
     tok = lexer.token()
