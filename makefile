@@ -1,3 +1,5 @@
+PYTHON = python
+
 help:
 	@echo "--------------------HELP------------------"
 	@echo "To run all .lcc examples, type 'make all'"
@@ -5,11 +7,11 @@ help:
 
 all:
 	@echo 'Run example1.lcc'
-	python main.py example1.lcc
+	${PYTHON} main.py example1.lcc
 	@echo
 	@echo 'Run example2.lcc'
-	python main.py example2.lcc
+	${PYTHON} main.py example2.lcc
 	@echo
 	@echo 'Run example3.lcc'
-	python main.py example3.lcc
+	${PYTHON} main.py example3.lcc
 
