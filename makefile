@@ -1,3 +1,5 @@
+# Python 3.8.5
+
 PYTHON = python
 
 help:
@@ -14,4 +16,3 @@ all:
 	@echo
 	@echo 'Run example3.lcc'
 	${PYTHON} main.py example3.lcc
-

@@ -1,15 +1,15 @@
-import sys
-import ply.lex as lex
+# Membros do grupo:
+# Letícia do Nascimento (16104595)
+# Ramna Sidharta (16100742)
+# Matheus Schaly (18200436)
 
+import ply.lex as lex
 
 # Create reserved words
 reserved = {
     'int': 'INT',
     'float': 'FLOAT',
     'string': 'STRING',
-    'const int': 'INT_CONSTANT',
-    'const float': 'FLOAT_CONSTANT',
-    'const string': 'STRING_CONSTANT',
 
     'if': 'IF',
     'then': 'THEN',
@@ -26,9 +26,9 @@ reserved = {
 
 # Create tokens
 tokens = [
-    'LITERAL_FLOAT',
-    'LITERAL_INT',
-    'LITERAL_STRING',
+    'FLOAT_CONSTANT',
+    'INT_CONSTANT',
+    'STRING_CONSTANT',
     'IDENT',
     'PLUS',
     'MINUS',
@@ -79,20 +79,20 @@ t_ignore = r' '  # Ignores spaces
 # Regular expression rules for complex tokens
 
 # Floats must be set before ints
-def t_LITERAL_FLOAT(t):
+def t_FLOAT_CONSTANT(t):
     r'\d+\.\d+'
     t.value = float(t.value)
     return t
 
 
 # Ints must be set after floats
-def t_LITERAL_INT(t):
+def t_INT_CONSTANT(t):
     r'\d+'  # Any numeric character whose length is more than 0
     t.value = int(t.value)
     return t
 
 
-def t_LITERAL_STRING(t):
+def t_STRING_CONSTANT(t):
     r'".*"'
     t.type = reserved.get(t.value, 'STRING')  # Check for reserved words
     return t
@@ -121,4 +121,3 @@ def t_error(t):
 
 if __name__ == '__main__':
     lex.runmain(lexer=lex.lex())
-
