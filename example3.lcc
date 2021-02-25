@@ -83,7 +83,7 @@ def change_array()
   div_num = 4;
   mod_num = 5;
   upper_limit = 100;
-  lower_limit = -100;
+  lower_limit = 50;
 
   arr = arr_sum(arr, add_num, upper_limit, lower_limit);
   arr = arr_sub(arr, sub_num, upper_limit, lower_limit);
