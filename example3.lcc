@@ -47,7 +47,7 @@ def arr_div(int[10] arr, int div_num, int upper_limit, int lower_limit)
 {
   int i;
   for (i = 0; i < 10; i = i + 1) {
-    arr[i] = arr[i] / div_num;
+    arr[i] = arr[i] \ div_num;
   }
   return arr;
 }
