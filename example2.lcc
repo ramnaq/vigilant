@@ -36,7 +36,7 @@ def cash_in(int bills, int value) {
 
 def withdraw(int quantity) {
     if (quantity > total) {
-        print("Error! Quantity to withdraw is greater than available.")
+        print "Error! Quantity to withdraw is greater than available."
         return -1;
     }
 
@@ -85,12 +85,12 @@ def withdraw(int quantity) {
                 possible = 1;
             }
         } else {
-            print("Error! Quantity to withdraw is not multiple of 5.");
+            print "Error! Quantity to withdraw is not multiple of 5.";
             return -1;
         }
 
         if (possible == 0) {
-            print("Sorry, there are not enough bills in the cash machine");
+            print "Sorry, there are not enough bills in the cash machine";
             return -1;
         }
     }
@@ -105,4 +105,3 @@ def cash_machine_operation() {
 
     withdraw(15);
 }
-
