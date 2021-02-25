@@ -1,0 +1,102 @@
+def arr_sum(int[10] arr, int add_num, int upper_limit, int lower_limit)
+{
+  int i;
+  for (i = 0; i < 10; i = i + 1) {
+    if (arr[i] + add_num > upper_limit) {
+      print "There was a break, in arr_sum, due to the upper_limit threshold";
+      break;
+    } else {
+      arr[i] = arr[i] + add_num;
+    }
+  }
+  return arr;
+}
+
+def arr_sub(int[10] arr, int sub_num, int upper_limit, int lower_limit)
+{
+  int i;
+  for (i = 0; i < 10; i = i + 1) {
+    if (arr[i] - sub_num < lower_limit) {
+      print "There was a break, in arr_sub, due to the lower_limit threshold";
+      break;
+    } else {
+      arr[i] = arr[i] - sub_num;
+    }
+  }
+  return arr;
+}
+
+def arr_mult(int[10] arr, int mult_num, int upper_limit, int lower_limit)
+{
+  int i;
+  for (i = 0; i < 10; i = i + 1) {
+    if (arr[i] * mult_num > upper_limit) {
+      print "There was a break, in arr_mult, due to the upper_limit threshold";
+      break;
+    } else if (arr[i] * mult_num < lower_limit) {
+      print "There was a break, in arr_mult, due to the lower_limit threshold";
+      break;
+    } else {
+      arr[i] = arr[i] * mult_num;
+    }
+  }
+  return arr;
+}
+
+def arr_div(int[10] arr, int div_num, int upper_limit, int lower_limit)
+{
+  int i;
+  for (i = 0; i < 10; i = i + 1) {
+    arr[i] = arr[i] / div_num;
+  }
+  return arr;
+}
+
+def arr_mod(int[10] arr, int mod_num, int upper_limit, int lower_limit)
+{
+  int i;
+  for (i = 0; i < 10; i = i + 1) {
+    arr[i] = arr[i] % mod_num;
+  }
+  return arr;
+}
+
+def change_array()
+{
+  int arr;
+  arr = new int[10];
+
+  print("Change all the elements of your array using basic math operations");
+  print("Your array won't have values above or below the limit variables");
+
+  int add_num;
+  int sub_num;
+  int mult_num;
+  int div_num;
+  int mod_num;
+  int upper_limit;
+  int lower_limit;
+
+  add_num = 1;
+  sub_num = 2;
+  mult_num = 3;
+  div_num = 4;
+  mod_num = 5;
+  upper_limit = 100;
+  lower_limit = -100;
+
+  arr = arr_sum(arr, add_num, upper_limit, lower_limit);
+  arr = arr_sub(arr, sub_num, upper_limit, lower_limit);
+  arr = arr_mult(arr, mult_num, upper_limit, lower_limit);
+  arr = arr_div(arr, div_num, upper_limit, lower_limit);
+  arr = arr_mod(arr, mod_num, upper_limit, lower_limit);
+
+  int i;
+
+  print "Your final array is:";
+  for (i = 0; i < 10; i = i + 1) {
+      print arr[i];
+    }
+  }
+
+}
