@@ -43,7 +43,11 @@ def withdraw(int quantity) {
     int cashing_out;
     cashing_out = quantity;
 
-    while (cashing_out > 0) {
+    int i;
+    for (i = 0; null; i = 0) {
+        if (cashing_out <= 0) {
+            break;
+        }
         int possible = 0;
         if (cashing_out >= 100) {
             if (count100 > 0) {
