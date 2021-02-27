@@ -3,6 +3,7 @@
 # Ramna Sidharta (16100742)
 # Matheus Schaly (18200436)
 
+import json
 import ply.lex as lex
 
 # Create reserved words
@@ -82,6 +83,7 @@ t_ignore = r' '  # Ignores spaces
 def t_FLOAT_CONSTANT(t):
     r'\d+\.\d+'
     t.value = float(t.value)
+    t.lexer.symbol_table[t.value] = (t.type, t.lineno, t.lexpos)
     return t
 
 
@@ -89,18 +91,21 @@ def t_FLOAT_CONSTANT(t):
 def t_INT_CONSTANT(t):
     r'\d+'  # Any numeric character whose length is more than 0
     t.value = int(t.value)
+    t.lexer.symbol_table[t.value] = (t.type, t.lineno, t.lexpos)
     return t
 
 
 def t_STRING_CONSTANT(t):
     r'".*"'
     t.type = reserved.get(t.value, 'STRING')  # Check for reserved words
+    t.lexer.symbol_table[t.value] = (t.type, t.lineno, t.lexpos)
     return t
 
 
 def t_IDENT(t):
     r'[a-zA-Z_]+[a-zA-Z0-9_]*'  # The first char has to be a letter
     t.type = reserved.get(t.value, 'IDENT')
+    t.lexer.symbol_table[t.value] = (t.type, t.lineno, t.lexpos)
     return t
 
 
@@ -120,4 +125,11 @@ def t_error(t):
 
 
 if __name__ == '__main__':
-    lex.runmain(lexer=lex.lex())
+    lexer = lex.lex()
+    lexer.symbol_table = {}
+    lex.runmain(lexer=lexer)
+
+    print('\n#####################')
+    print('\nSymbol table: ')
+    print(json.dumps(lexer.symbol_table, indent=2))
+
