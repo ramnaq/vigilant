@@ -1,6 +1,6 @@
 import ply.yacc as yacc
 
-from calclex import tokens
+from vlant.lexer import tokens
 
 
 def p_empty(p):
@@ -65,7 +65,7 @@ def p_statement(p):
               | returnstat ';'
               | ifstat
               | forstat
-              | {statelist}
+              | '{' statelist '}'
               | BREAK ';'
               | ';'
     '''
