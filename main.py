@@ -135,5 +135,5 @@ if __name__ == '__main__':
 
     print('\n#####################')
     print('\nSymbol table: ')
-    print(json.dumps(lexer.symbol_table, indent=2))
+    print(json.dumps(lexer.symbol_table))
 
