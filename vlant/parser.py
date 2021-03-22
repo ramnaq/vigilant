@@ -1,7 +1,6 @@
 import ply.yacc as yacc
 
 from calclex import tokens
-from ce.semantic.declarations import DeclVariable, DeclFunction
 
 
 def p_empty(p):
@@ -36,7 +35,7 @@ def p_funcdef(p):
     '''
     funcdef : DEF IDENT '(' paramlist ')' '{' statelist '}'
     '''
-    p[0] = DeclFunction(p[1], p[2], args=p[4])
+    p[0] = p[1] + p[2] + p[4] + p[7]
 
 
 def p_paramlist(p):
@@ -79,8 +78,7 @@ def p_vardecl(p):
             | FLOAT IDENT int_const_list
             | STRING IDENT int_const_list
     '''
-    p[0] = DeclVariable(p[1], p[2], p[3])  # TODO: check this, ignored int_const_list
-                                           # the given grammar is weird in relation to this
+    p[0] = p[1] + p[2] + p[3]
 
 
 def p_atribstat(p):
@@ -104,15 +102,7 @@ def p_funccall(p):
 def p_error(p):
     print("Syntax error in input!")
 
-# Build the parser
-parser = yacc.yacc()
 
-while True:
-   try:
-       s = input('calc > ')
-   except EOFError:
-       break
-   if not s: continue
-   result = parser.parse(s)
-   print(result)
+def create_parser():
+    return yacc.yacc()
 
