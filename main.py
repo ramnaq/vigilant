@@ -83,7 +83,6 @@ t_ignore = r' '  # Ignores spaces
 def t_FLOAT_CONSTANT(t):
     r'\d+\.\d+'
     t.value = float(t.value)
-    t.lexer.symbol_table[t.value] = (t.type, t.lineno, t.lexpos)
     return t
 
 
@@ -91,14 +90,12 @@ def t_FLOAT_CONSTANT(t):
 def t_INT_CONSTANT(t):
     r'\d+'  # Any numeric character whose length is more than 0
     t.value = int(t.value)
-    t.lexer.symbol_table[t.value] = (t.type, t.lineno, t.lexpos)
     return t
 
 
 def t_STRING_CONSTANT(t):
     r'".*"'
     t.type = reserved.get(t.value, 'STRING')  # Check for reserved words
-    t.lexer.symbol_table[t.value] = (t.type, t.lineno, t.lexpos)
     return t
 
 
