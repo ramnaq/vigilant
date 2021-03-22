@@ -105,7 +105,14 @@ def t_STRING_CONSTANT(t):
 def t_IDENT(t):
     r'[a-zA-Z_]+[a-zA-Z0-9_]*'  # The first char has to be a letter
     t.type = reserved.get(t.value, 'IDENT')
-    t.lexer.symbol_table[t.value] = (t.type, t.lineno, t.lexpos)
+    if t.value in t.lexer.symbol_table:
+        # Add occurrence to symbol already present in the table
+        existing_symbol = t.lexer.symbol_table[t.value]
+        symbol_occurrences = existing_symbol[1]
+        symbol_occurrences.append((t.lineno, t.lexpos))
+    else:
+        # Add new symbol to the table
+        t.lexer.symbol_table[t.value] = (t.type, [(t.lineno, t.lexpos)])
     return t
 
 
