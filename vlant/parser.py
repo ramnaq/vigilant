@@ -3,16 +3,15 @@ import ply.yacc as yacc
 from vlant.lexer import tokens
 
 
-def p_empty(p):
-    ''' empty : '''
-    pass
+#def p_empty(p):
+#    ''' empty : '''
+#    pass
 
 
 def p_program(p):
     '''
     program : statement
             | funclist
-            | empty
     '''
     if p[1] is None:
         ...  # ?
@@ -46,7 +45,6 @@ def p_paramlist(p):
               | INT IDENT
               | FLOAT IDENT
               | STRING IDENT
-              | empty
     '''
     if p[1] is None:
         ...  # ?
@@ -81,14 +79,14 @@ def p_vardecl(p):
     p[0] = p[1] + p[2] + p[3]
 
 
-def p_atribstat(p):
-    '''
-    atribstat : lvalue = expression
-              | lvalue = ...
-              | lvalue = ...
-    '''
-    # TODO: this rule cannot be implemented yet, because it can be factored
-    ...
+#def p_atribstat(p):
+#    '''
+#    atribstat : lvalue '=' expression
+#              | lvalue '=' ...
+#              | lvalue '=' ...
+#    '''
+#    # TODO: this rule cannot be implemented yet, because it can be factored
+#    ...
 
 
 def p_funccall(p):
