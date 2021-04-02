@@ -9,81 +9,82 @@ import ply.lex as lex
 # Create reserved words
 reserved = {
     'int': 'INT',
-    'float': 'FLOAT',
-    'string': 'STRING',
+#    'float': 'FLOAT',
+#    'string': 'STRING',
 
     'if': 'IF',
-    'then': 'THEN',
-    'else': 'ELSE',
-    'for': 'FOR',
-    'break': 'BREAK',
-    'print': 'PRINT',
+#    'then': 'THEN',
+#    'else': 'ELSE',
+#    'for': 'FOR',
+#    'break': 'BREAK',
+#    'print': 'PRINT',
     'return': 'RETURN',
     'def': 'DEF',
-    'new': 'NEW',
-    'null': 'NULL',
-    'read': 'READ'
+#    'new': 'NEW',
+#    'null': 'NULL',
+#    'read': 'READ'
 }
 
 # Create tokens
 tokens = [
-    'FLOAT_CONSTANT',
+#    'FLOAT_CONSTANT',
     'INT_CONSTANT',
-    'STRING_CONSTANT',
+#    'STRING_CONSTANT',
     'IDENT',
-    'PLUS',
-    'MINUS',
-    'MULTIPLY',
-    'DIVIDE',
-    'MODULE',
-    'EQUALS',
-    'ASSIGN',
-    'NOT_EQUAL',
+#    'PLUS',
+#    'MINUS',
+#    'MULTIPLY',
+#    'DIVIDE',
+#    'MODULE',
+#    'EQUALS',
+#    'ASSIGN',
+#    'NOT_EQUAL',
     'LPAREN',  # 'left parenthesis'
     'RPAREN',
     'LCBRACKET',  # 'left curly bracket'
     'RCBRACKET',
-    'LBRACKET',
-    'RBRACKET',
-    'LTE',  # 'less than or equal'
-    'LT',
+#    'LBRACKET',
+#    'RBRACKET',
+#    'LTE',  # 'less than or equal'
+#    'LT',
     'GTE',
-    'GT',
+#    'GT',
     'SEMICOLON',
     'COMMA'
 ] + list(reserved.values())  # Add reserved words into tokens' list
 
 # Regular expression rules for simple tokens
-t_PLUS = r'\+'  # Recognizes a PLUS as a +
-t_MINUS = r'-'
-t_MULTIPLY = r'\*'
-t_DIVIDE = r'\\'
-t_MODULE = r'%'
-t_EQUALS = r'=='  # '==' must be set before '!='
-t_ASSIGN = r'='
-t_NOT_EQUAL = r'!='
+#t_PLUS = r'\+'  # Recognizes a PLUS as a +
+#t_MINUS = r'-'
+#t_MULTIPLY = r'\*'
+#t_DIVIDE = r'\\'
+#t_MODULE = r'%'
+#t_EQUALS = r'=='  # '==' must be set before '!='
+#t_ASSIGN = r'='
+#t_NOT_EQUAL = r'!='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LCBRACKET = r'{'
 t_RCBRACKET = r'}'
-t_LBRACKET = r'\['
-t_RBRACKET = r']'
-t_LTE = r'<='
-t_LT = r'<'
+#t_LBRACKET = r'\['
+#t_RBRACKET = r']'
+#t_LTE = r'<='
+#t_LT = r'<'
 t_GTE = r'>='
-t_GT = r'>'
+#t_GT = r'>'
 t_SEMICOLON = r'\;'
 t_COMMA = r','
 t_ignore = r' '  # Ignores spaces
 
+literals = [',', ';', '(', ')', '{', '}', '+', '-', '*', '%', '/']
 
 # Regular expression rules for complex tokens
 
 # Floats must be set before ints
-def t_FLOAT_CONSTANT(t):
-    r'\d+\.\d+'
-    t.value = float(t.value)
-    return t
+#def t_FLOAT_CONSTANT(t):
+#    r'\d+\.\d+'
+#    t.value = float(t.value)
+#    return t
 
 
 # Ints must be set after floats
@@ -93,10 +94,10 @@ def t_INT_CONSTANT(t):
     return t
 
 
-def t_STRING_CONSTANT(t):
-    r'".*"'
-    t.type = reserved.get(t.value, 'STRING')  # Check for reserved words
-    return t
+#def t_STRING_CONSTANT(t):
+#    r'".*"'
+#    t.type = reserved.get(t.value, 'STRING')  # Check for reserved words
+#    return t
 
 
 def t_IDENT(t):
@@ -113,15 +114,15 @@ def t_IDENT(t):
     return t
 
 
-def t_COMMENT(t):
-    r'\#.*'
-    pass  # No return value. Token discarded
+#def t_COMMENT(t):
+#    r'\#.*'
+#    pass  # No return value. Token discarded
 
 
 # Track row
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
+#def t_newline(t):
+#    r'\n+'
+#    t.lexer.lineno += len(t.value)
 
 
 def t_error(t):
