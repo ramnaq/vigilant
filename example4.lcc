@@ -1,0 +1,157 @@
+string nome_anao1 = "Bofur";
+string nome_anao2 = "Borin";
+string nome_anao3 = "Gróin";
+string nome_anao4 = "Balin";
+string nome_anao5 = "Dwalin";
+
+string nome_elfo1 = "Legolas";
+string nome_elfo2 = "Arwen";
+string nome_elfo3 = "Galadriel";
+string nome_elfo4 = "Calen";
+string nome_elfo5 = "Freda";
+
+string nome_homem1 = "Aragorn";
+string nome_homem2 = "Isildur";
+string nome_homem3 = "Boromir";
+string nome_homem4 = "Roberto";
+string nome_homem5 = "Gabriel";
+
+string nome_hobbit1 = "Bilbo";
+string nome_hobbit2 = "Merry";
+string nome_hobbit3 = "Pippin";
+string nome_hobbit4 = "Sam";
+string nome_hobbit5 = "Frodo";
+
+def selecionarNomeAnao(int numero) {
+  string nome_anao;
+
+  if (numero == 1) {
+    nome_anao = nome_anao1;
+  } else if (numero == 2) {
+    nome_anao = nome_anao2;
+  } else if numero == 3) {
+    nome_anao = nome_anao3;
+  } else if (numero == 4) {
+    nome_anao = nome_anao4;
+  } else if (numero == 5) {
+    nome_anao = nome_anao5;
+  } else {
+    return "Número inválido";
+  }
+
+  return nome_anao;
+}
+
+def selecionarNomeHomem(int numero) {
+  string nome_homem;
+
+  if (numero == 1) {
+    nome_homem = nome_homem1;
+  } else if (numero == 2) {
+    nome_homem = nome_homem2;
+  } else if numero == 3) {
+    nome_homem = nome_homem3;
+  } else if (numero == 4) {
+    nome_homem = nome_homem4;
+  } else if (numero == 5) {
+    nome_homem = nome_homem5;
+  } else {
+    return "Número inválido";
+  }
+
+  return nome_homem;
+}
+
+def selecionarNomeElfo(int numero) {
+  string nome_elfo;
+
+  if (numero == 1) {
+    nome_elfo = nome_elfo1;
+  } else if (numero == 2) {
+    nome_elfo = nome_elfo2;
+  } else if numero == 3) {
+    nome_elfo = nome_elfo3;
+  } else if (numero == 4) {
+    nome_elfo = nome_elfo4;
+  } else if (numero == 5) {
+    nome_elfo = nome_elfo5;
+  } else {
+    return "Número inválido";
+  }
+
+  return nome_elfo;
+}
+
+def selecionarNomeHobbit(int numero) {
+  string nome_hobbit;
+
+  if (numero == 1) {
+    nome_hobbit = nome_hobbit1;
+  } else if (numero == 2) {
+    nome_hobbit = nome_hobbit2;
+  } else if numero == 3) {
+    nome_hobbit = nome_hobbit3;
+  } else if (numero == 4) {
+    nome_hobbit = nome_hobbit4;
+  } else if (numero == 5) {
+    nome_hobbit = nome_hobbit5;
+  } else {
+    return "Número inválido";
+  }
+
+  return nome_hobbit;
+}
+
+def gerarIdade(int tipoPersonagem, int random) {
+  int idade;
+
+  if (tipoPersonagem == 2) {
+    idade = random * 1000;
+  } else if (tipoPersonagem == 1) {
+    idade = random * 50;
+  } else if (tipoPersonagem == 4) {
+    idade = random * 12;
+  } else if (tipoPersonagem == 3) {
+    idade = random * 50;
+  }
+   
+  return idade;
+}
+
+def criarPersonagemTerraMedia()
+{
+  print "Crie seu personagem da terra média";
+
+  string nome;
+  int idade;
+  int random = 6;
+  int tipoPersonagem = 1;
+  int numeroNomeSelecionado = 5;
+
+  if (n == 1) {
+    nome = selectNomeAnao(numeroNomeSelecionado);
+    idade = gerarIdade(1, random);
+  } else if (n == 2) {
+    nome = selecionarNomeElfo(numeroNomeSelecionado);
+    idade = gerarIdade(2, random);
+  } else if (n == 3) {
+    nome = selecionarNomeHomem(numeroNomeSelecionado);
+    idade = gerarIdade(3, random);
+  } else if (n == 4) {
+    nome = selecionarNomeHobbit(numeroNomeSelecionado);
+    idade = gerarIdade(4, random);
+  }
+
+  arr = new int[5];
+  arr[0] = 1;
+  arr[1] = 2;
+  arr[2] = 3;
+  arr[3] = 4;
+  arr[4] = 5;
+
+  for (i = 0; i < 5; i = i + 1) {
+    print arr[i];
+  }
+
+  return;
+}
