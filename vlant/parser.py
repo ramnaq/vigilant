@@ -14,7 +14,7 @@ def p_program(p):
             | funclist
     '''
     if p[1] is None:
-        ...  # ?
+        ...
     else:
         p[0] = p[1]
 
@@ -25,16 +25,16 @@ def p_funclist(p):
              | funcdef
     '''
     if len(p) == 3:
-        p[0] = p[1] + p[2]
+        p[0] = [p[1]] + p[2]
     else:
-        p[0] = p[1]
+        p[0] = [p[1]]
 
 
 def p_funcdef(p):
     '''
-    funcdef : DEF IDENT '(' paramlist ')' '{' statelist '}'
+    funcdef : DEF IDENT LPAREN paramlist RPAREN statelist
     '''
-    p[0] = p[1] + p[2] + p[4] + p[7]
+    p[0] = [p[4]] + [p[6]]
 
 
 # TODO: FLOAT e STRING
@@ -44,9 +44,9 @@ def p_paramlist(p):
               |
     '''
     if p[1] is None:
-        p[0] = ''
+        pass
     else:
-        p[0] = p[1] + p[2] + p[3]
+        p[0] = p[3]
 
 
 def p_paramlist_(p):
@@ -69,7 +69,9 @@ def p_statement(p):
               | LCBRACKET statelist RCBRACKET
               | SEMICOLON
     '''
-    if len(p) == 3:
+    if len(p) == 2:
+        p[0] = p[1]
+    elif len(p) == 3:
         p[0] = p[1]
     elif len(p) == 4:
         p[0] = p[2]
@@ -85,17 +87,10 @@ def p_vardecl(p):
 
 def p_atribstat(p):
     '''
-    atribstat : lvalue '=' atribstat_
+    atribstat : lvalue ASSIGN atribstat_
     '''
     p[0] = p[1] + p[3]
 
-
-# TODO: add lvalue_ in the end
-def p_lvalue(p):
-    '''
-    lvalue : IDENT
-    '''
-    pass
 
 # TODO complete with allocexpression and funccall
 def p_atribstat_(p):
@@ -114,7 +109,8 @@ def p_atribstat_(p):
 
 def p_returnstat(p):
     '''
-    returnstat : RETURN
+    returnstat : RETURN IDENT
+               | RETURN
     '''
     ...
 
@@ -124,7 +120,7 @@ def p_ifstat(p):
     '''
     ifstat : IF LPAREN expression RPAREN statement
     '''
-    p[0] = p[3] + p[5] + p[6]
+    p[0] = [p[3]] + [p[5]]
 
 
 def p_statelist(p):
@@ -133,7 +129,7 @@ def p_statelist(p):
               | statement statelist
     '''
     p[0] = p[1]
-    if len(p) == 3:
+    if len(p) == 3 and p[2] is not None:
         p[0] += p[2]
 
 
@@ -141,18 +137,31 @@ def p_expression(p):
     '''
     expression : numexpression expression_
     '''
-    p[0] = p[1] + p[2]
+    if p[1] != None:
+        p[0] = p[1] + p[2]
 
 
 # TODO complete with the other rules
 def p_expression_(p):
     '''
-    expression_ : GTE
+    expression_ : GT expression_lte_gte
     '''
-    pass
+    p[0] = [2]
 
 
-# TODO: to complete
+def p_expression_lte_gte(p):
+    """
+    expression_lte_gte : ASSIGN numexpression
+                       | numexpression
+    """
+    if len(p) == 3:
+        p[0] = p[2]
+    else:
+        p[0] = p[1]
+
+
+
+# TODO: complete with numexpression_
 def p_numexpression(p):
     '''
     numexpression : term
@@ -163,23 +172,40 @@ def p_numexpression(p):
 # TODO to complete
 def p_term(p):
     '''
-    term : factor
+    term : lvalue
     '''
     p[0] = p[1]
 
 
-# TODO to complete
-def p_factor(p):
-    '''
-    factor : INT_CONSTANT
-    '''
+def p_lvalue(p):
+    """
+    lvalue : IDENT lvalue_
+    """
+    p[0] = p[2]
+
+
+def p_lvalue_(p):
+    """
+    lvalue_ :
+    """
     pass
+
+
+# TODO to complete
+#def p_factor(p):
+#    '''
+#    factor : INT_CONSTANT
+#    '''
+#    pass
+
+
+
 
 # Error rule for syntax errors
 def p_error(p):
-    print("Syntax error in input!")
+    print("Syntax error in input! ", p)
 
 
-def create_parser():
-    return yacc.yacc()
+def create_parser(debug=True):
+    return yacc.yacc(debug=debug)
 

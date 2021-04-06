@@ -37,7 +37,7 @@ tokens = [
 #    'DIVIDE',
 #    'MODULE',
 #    'EQUALS',
-#    'ASSIGN',
+    'ASSIGN',
 #    'NOT_EQUAL',
     'LPAREN',  # 'left parenthesis'
     'RPAREN',
@@ -47,8 +47,8 @@ tokens = [
 #    'RBRACKET',
 #    'LTE',  # 'less than or equal'
 #    'LT',
-    'GTE',
-#    'GT',
+#    'GTE',
+    'GT',
     'SEMICOLON',
     'COMMA'
 ] + list(reserved.values())  # Add reserved words into tokens' list
@@ -60,7 +60,7 @@ tokens = [
 #t_DIVIDE = r'\\'
 #t_MODULE = r'%'
 #t_EQUALS = r'=='  # '==' must be set before '!='
-#t_ASSIGN = r'='
+t_ASSIGN = r'='
 #t_NOT_EQUAL = r'!='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
@@ -70,8 +70,8 @@ t_RCBRACKET = r'}'
 #t_RBRACKET = r']'
 #t_LTE = r'<='
 #t_LT = r'<'
-t_GTE = r'>='
-#t_GT = r'>'
+#t_GTE = r'>='
+t_GT = r'>'
 t_SEMICOLON = r'\;'
 t_COMMA = r','
 t_ignore = r' '  # Ignores spaces
@@ -120,18 +120,20 @@ def t_IDENT(t):
 
 
 # Track row
-#def t_newline(t):
-#    r'\n+'
-#    t.lexer.lineno += len(t.value)
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
 
 
 def t_error(t):
     raise SyntaxError('Error at line %d, position %d' % (t.lineno, t.lexpos))
 
 
+lexer = lex.lex()
+lexer.symbol_table = {}
+
+
 if __name__ == '__main__':
-    lexer = lex.lex()
-    lexer.symbol_table = {}
     lex.runmain(lexer=lexer)
 
     print('\n#####################')
