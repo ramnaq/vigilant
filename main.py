@@ -17,5 +17,5 @@ if __name__ == '__main__':
     with open(filename, 'r') as f:
         data = f.read()
         parser = create_parser()
-        result = parser.parse(data)
+        result = parser.parse(data, debug=True, tracking=True)
 

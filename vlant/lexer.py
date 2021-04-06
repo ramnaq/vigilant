@@ -9,8 +9,8 @@ import ply.lex as lex
 # Create reserved words
 reserved = {
     'int': 'INT',
-#    'float': 'FLOAT',
-#    'string': 'STRING',
+    'float': 'FLOAT',
+    'string': 'STRING',
 
     'if': 'IF',
 #    'then': 'THEN',
@@ -21,21 +21,21 @@ reserved = {
     'return': 'RETURN',
     'def': 'DEF',
 #    'new': 'NEW',
-#    'null': 'NULL',
+    'null': 'NULL',
 #    'read': 'READ'
 }
 
 # Create tokens
 tokens = [
-#    'FLOAT_CONSTANT',
+    'FLOAT_CONSTANT',
     'INT_CONSTANT',
-#    'STRING_CONSTANT',
+    'STRING_CONSTANT',
     'IDENT',
 #    'PLUS',
 #    'MINUS',
-#    'MULTIPLY',
-#    'DIVIDE',
-#    'MODULE',
+    'MULTIPLY',
+    'DIVIDE',
+    'MOD',
 #    'EQUALS',
     'ASSIGN',
 #    'NOT_EQUAL',
@@ -56,9 +56,9 @@ tokens = [
 # Regular expression rules for simple tokens
 #t_PLUS = r'\+'  # Recognizes a PLUS as a +
 #t_MINUS = r'-'
-#t_MULTIPLY = r'\*'
-#t_DIVIDE = r'\\'
-#t_MODULE = r'%'
+t_MULTIPLY = r'\*'
+t_DIVIDE = r'\\'
+t_MOD = r'%'
 #t_EQUALS = r'=='  # '==' must be set before '!='
 t_ASSIGN = r'='
 #t_NOT_EQUAL = r'!='
@@ -81,10 +81,10 @@ literals = [',', ';', '(', ')', '{', '}', '+', '-', '*', '%', '/']
 # Regular expression rules for complex tokens
 
 # Floats must be set before ints
-#def t_FLOAT_CONSTANT(t):
-#    r'\d+\.\d+'
-#    t.value = float(t.value)
-#    return t
+def t_FLOAT_CONSTANT(t):
+    r'\d+\.\d+'
+    t.value = float(t.value)
+    return t
 
 
 # Ints must be set after floats
@@ -94,10 +94,10 @@ def t_INT_CONSTANT(t):
     return t
 
 
-#def t_STRING_CONSTANT(t):
-#    r'".*"'
-#    t.type = reserved.get(t.value, 'STRING')  # Check for reserved words
-#    return t
+def t_STRING_CONSTANT(t):
+    r'".*"'
+    t.type = reserved.get(t.value, 'STRING')  # Check for reserved words
+    return t
 
 
 def t_IDENT(t):

@@ -21,13 +21,18 @@ def p_program(p):
 
 def p_funclist(p):
     '''
-    funclist : funcdef funclist
-             | funcdef
+    funclist : funcdef funclist_
     '''
-    if len(p) == 3:
-        p[0] = [p[1]] + p[2]
-    else:
-        p[0] = [p[1]]
+    p[0] = [p[1]] + [p[2]]
+
+
+def p_funclist_(p):
+    '''
+    funclist_ : funclist
+              |
+    '''
+    if len(p) == 2:
+        p[0] = p[1]
 
 
 def p_funcdef(p):
@@ -37,10 +42,11 @@ def p_funcdef(p):
     p[0] = [p[4]] + [p[6]]
 
 
-# TODO: FLOAT e STRING
 def p_paramlist(p):
     '''
     paramlist : INT IDENT paramlist_
+              | FLOAT IDENT paramlist_
+              | STRING IDENT paramlist_
               |
     '''
     if p[1] is None:
@@ -59,7 +65,8 @@ def p_paramlist_(p):
     else:
         pass
 
-# TODO: printstat, readstat, BREAK, forstat, ifstat
+
+# TODO: break, for, readstat, print
 def p_statement(p):
     '''
     statement : vardecl SEMICOLON
@@ -77,12 +84,46 @@ def p_statement(p):
         p[0] = p[2]
 
 
-#TODO: complete with the other rules
 def p_vardecl(p):
     '''
-    vardecl : INT IDENT INT_CONSTANT
+    vardecl : INT IDENT int_const_list
+            | FLOAT IDENT float_const_list
+            | STRING IDENT STRING_CONSTANT
     '''
-    p[0] = p[3]
+    if p[1] != 'string':
+        p[0] = p[3]
+
+
+#def p_printstat(p):
+#    '''
+#    printstat : PRINT expression
+#    '''
+#    p[0] = p[2]
+
+
+#def p_readstat(p):
+#    '''
+#    readstat : READ lvalue
+#    '''
+#    p[0] = p[2]
+
+
+def p_int_const_list(p):
+    '''
+    int_const_list : INT_CONSTANT int_const_list
+                   |
+    '''
+    if len(p) == 3:
+        p[0] = p[2]
+
+
+def p_float_const_list(p):
+    '''
+    float_const_list : FLOAT_CONSTANT float_const_list
+                     |
+    '''
+    if len(p) == 3:
+        p[0] = p[2]
 
 
 def p_atribstat(p):
@@ -92,10 +133,40 @@ def p_atribstat(p):
     p[0] = p[1] + p[3]
 
 
-# TODO complete with allocexpression and funccall
+# TODO
 def p_atribstat_(p):
     '''
-    atribstat_ : expression
+    atribstat_ : INT_CONSTANT
+    '''
+    #if len(p) == 2:
+    #    p[0] = p[1]
+    #else:
+    pass
+
+
+# TODO check term_ or term
+def p_term(p):
+    '''
+    term : unaryexpr term_
+    '''
+    p[0] = [p[1]] + [p[2]]
+
+
+def p_term_(p):
+    '''
+    term_ : MULTIPLY term
+          | DIVIDE term
+          | MOD term
+          |
+    '''
+    if len(p) == 3:
+        p[0] = p[2]
+
+
+# TODO + factor | - factor
+def p_unaryexpr(p):
+    '''
+    unaryexpr : factor
     '''
     p[0] = p[1]
 
@@ -169,14 +240,6 @@ def p_numexpression(p):
     p[0] = p[1]
 
 
-# TODO to complete
-def p_term(p):
-    '''
-    term : lvalue
-    '''
-    p[0] = p[1]
-
-
 def p_lvalue(p):
     """
     lvalue : IDENT lvalue_
@@ -184,6 +247,7 @@ def p_lvalue(p):
     p[0] = p[2]
 
 
+# TODO NUM_EXPR_LIST
 def p_lvalue_(p):
     """
     lvalue_ :
@@ -191,14 +255,20 @@ def p_lvalue_(p):
     pass
 
 
-# TODO to complete
-#def p_factor(p):
-#    '''
-#    factor : INT_CONSTANT
-#    '''
-#    pass
-
-
+# TODO (NUMEXPRESSION)
+def p_factor(p):
+    '''
+    factor : INT_CONSTANT
+           | FLOAT_CONSTANT
+           | STRING_CONSTANT
+           | lvalue
+           | NULL
+    '''
+    # this is ugly
+    input_type = type(p[1])
+    if (input_type is not int) and (input_type is not float):
+        if p[1] != 'null':
+            p[0] = p[1]
 
 
 # Error rule for syntax errors
