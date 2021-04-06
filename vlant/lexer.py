@@ -14,13 +14,13 @@ reserved = {
 
     'if': 'IF',
 #    'then': 'THEN',
-#    'else': 'ELSE',
-#    'for': 'FOR',
-#    'break': 'BREAK',
+    'else': 'ELSE',
+    'for': 'FOR',
+    'break': 'BREAK',
     'print': 'PRINT',
     'return': 'RETURN',
     'def': 'DEF',
-#    'new': 'NEW',
+    'new': 'NEW',
     'null': 'NULL',
     'read': 'READ'
 }
@@ -43,8 +43,8 @@ tokens = [
     'RPAREN',
     'LCBRACKET',  # 'left curly bracket'
     'RCBRACKET',
-#    'LBRACKET',
-#    'RBRACKET',
+    'LBRACKET',
+    'RBRACKET',
 #    'LTE',  # 'less than or equal'
     'LT',
 #    'GTE',
@@ -59,15 +59,15 @@ t_MINUS = r'-'
 t_MULTIPLY = r'\*'
 t_DIVIDE = r'\\'
 t_MOD = r'%'
-#t_EQUALS = r'=='  # '==' must be set before '!='
+t_EQUALS = r'=='  # '==' must be set before '!='
 t_ASSIGN = r'='
 t_NOT_EQUAL = r'!='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LCBRACKET = r'{'
 t_RCBRACKET = r'}'
-#t_LBRACKET = r'\['
-#t_RBRACKET = r']'
+t_LBRACKET = r'\['
+t_RBRACKET = r']'
 #t_LTE = r'<='
 t_LT = r'<'
 #t_GTE = r'>='

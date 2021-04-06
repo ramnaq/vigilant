@@ -59,7 +59,6 @@ def p_paramlist_(p):
         pass
 
 
-# TODO: break, for, readstat, print
 def p_statement(p):
     '''
     statement : vardecl SEMICOLON
@@ -68,7 +67,9 @@ def p_statement(p):
               | readstat SEMICOLON
               | returnstat SEMICOLON
               | ifstat
+              | forstat
               | LCBRACKET statelist RCBRACKET
+              | BREAK SEMICOLON
               | SEMICOLON
     '''
     if len(p) == 2:
@@ -128,15 +129,31 @@ def p_atribstat(p):
     p[0] = [p[1]] + [p[3]]
 
 
-# TODO
 def p_atribstat_(p):
     '''
-    atribstat_ : INT_CONSTANT
+    atribstat_ : allocexpression
+               | funccall
+               | expression
     '''
-    #if len(p) == 2:
-    #    p[0] = p[1]
-    #else:
-    pass
+    p[0] = p[1]
+
+
+def p_allocexpression(p):
+    '''
+    allocexpression : NEW allocexpression_
+    '''
+    p[0] = p[2]
+
+
+# TODO: update string_constant rule for it to accept more than one string
+def p_allocexpression_(p):
+    '''
+    allocexpression_ : INT num_expr_list
+                     | FLOAT num_expr_list
+                     | STRING STRING_CONSTANT
+    '''
+    if p[1] != 'string':
+        p[0] = p[2]
 
 
 # TODO check term_ or term
@@ -164,14 +181,35 @@ def p_unaryexpr(p):
               | PLUS factor
               | MINUS factor
     '''
-    p[0] = p[1]
+    if len(p) == 2:
+        p[0] = p[1]
+    else:
+        p[0] = p[2]
 
 
-#def p_funccall(p):
-#    '''
-#    funccal : IDENT '(' paramlistcall ')'
-#    '''
-#    pass
+def p_funccall(p):
+    '''
+    funccall : IDENT LPAREN paramlistcall RPAREN
+    '''
+    p[0] = p[3]
+
+
+def p_paramlistcall(p):
+    '''
+    paramlistcall : IDENT paramlistcall_
+                  |
+    '''
+    if len(p) == 3:
+        p[0] = p[2]
+
+
+def p_paramlistcall_(p):
+    '''
+    paramlistcall_ : SEMICOLON paramlistcall
+                   |
+    '''
+    if len(p) == 3:
+        p[0] = p[2]
 
 
 def p_returnstat(p):
@@ -182,12 +220,27 @@ def p_returnstat(p):
     ...
 
 
-#TODO: add ifstat_ in the end
 def p_ifstat(p):
     '''
-    ifstat : IF LPAREN expression RPAREN statement
+    ifstat : IF LPAREN expression RPAREN statement ifstat_
     '''
-    p[0] = [p[3]] + [p[5]]
+    p[0] = [p[3]] + [p[5]] + [p[6]]
+
+
+def p_ifstat_(p):
+    '''
+    ifstat_ : ELSE statement
+            |
+    '''
+    if len(p) == 3:
+        p[0] = p[2]
+
+
+def p_forstat(p):
+    '''
+    forstat : FOR LPAREN atribstat COMMA expression COMMA atribstat RPAREN statement
+    '''
+    p[0] = p[3] + p[5] + p[7] + p[9]
 
 
 def p_statelist(p):
@@ -204,8 +257,7 @@ def p_expression(p):
     '''
     expression : numexpression expression_
     '''
-    if p[1] != None:
-        p[0] = p[1] + p[2]
+    p[0] = [p[1]] + [p[2]]
 
 
 def p_expression_(p):
@@ -246,7 +298,7 @@ def p_numexpression_(p):
                    |
     '''
     if len(p) == 4:
-        p[0] = p[2] + p[3]
+        p[0] = [p[2]] + [p[3]]
 
 
 def p_lvalue(p):
@@ -256,7 +308,6 @@ def p_lvalue(p):
     p[0] = p[2]
 
 
-# TODO NUM_EXPR_LIST
 def p_lvalue_(p):
     '''
     lvalue_ : num_expr_list
@@ -268,7 +319,7 @@ def p_lvalue_(p):
 
 def p_num_expr_list(p):
     '''
-    num_expr_list : numexpression num_expr_list_
+    num_expr_list : LBRACKET numexpression RBRACKET num_expr_list_
     '''
     p[0] = [p[1]] + [p[2]]
 
@@ -291,12 +342,11 @@ def p_factor(p):
            | NULL
            | LPAREN numexpression RPAREN
     '''
-    # this is ugly
-    input_type = type(p[1])
-    if (input_type is not int) and (input_type is not float):
-        if p[1] != 'null':
+    if len(p) == 2:
+        t = type(p[1])
+        if (t is not str) and (t is not float) and (t is not int) and (t is not 'null'):
             p[0] = p[1]
-    elif len(p) == 4:
+    else:
         p[0] = p[2]
 
 
