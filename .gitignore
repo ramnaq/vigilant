@@ -1,3 +1,5 @@
 .venv
+__pycache__
+vlant/__pycache__
 vlant/parser.out
 vlant/parsetab.py
