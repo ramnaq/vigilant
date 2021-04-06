@@ -32,7 +32,7 @@ def p_funclist(p):
 
 def p_funcdef(p):
     '''
-    funcdef : DEF IDENT LPAREN paramlist RPAREN statelist
+    funcdef : DEF IDENT LPAREN paramlist RPAREN LCBRACKET statelist RCBRACKET
     '''
     p[0] = [p[4]] + [p[6]]
 
