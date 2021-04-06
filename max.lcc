@@ -1,6 +1,5 @@
-def max(int a, int b) {
-  if (a >= b) {
+def max ( int a, int b ) {
+  if ( a >= b )
     return a;
-  }
   return b;
 }
