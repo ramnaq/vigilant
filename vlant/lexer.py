@@ -17,12 +17,12 @@ reserved = {
 #    'else': 'ELSE',
 #    'for': 'FOR',
 #    'break': 'BREAK',
-#    'print': 'PRINT',
+    'print': 'PRINT',
     'return': 'RETURN',
     'def': 'DEF',
 #    'new': 'NEW',
     'null': 'NULL',
-#    'read': 'READ'
+    'read': 'READ'
 }
 
 # Create tokens
@@ -31,14 +31,14 @@ tokens = [
     'INT_CONSTANT',
     'STRING_CONSTANT',
     'IDENT',
-#    'PLUS',
-#    'MINUS',
+    'PLUS',
+    'MINUS',
     'MULTIPLY',
     'DIVIDE',
     'MOD',
-#    'EQUALS',
+    'EQUALS',
     'ASSIGN',
-#    'NOT_EQUAL',
+    'NOT_EQUAL',
     'LPAREN',  # 'left parenthesis'
     'RPAREN',
     'LCBRACKET',  # 'left curly bracket'
@@ -46,7 +46,7 @@ tokens = [
 #    'LBRACKET',
 #    'RBRACKET',
 #    'LTE',  # 'less than or equal'
-#    'LT',
+    'LT',
 #    'GTE',
     'GT',
     'SEMICOLON',
@@ -54,14 +54,14 @@ tokens = [
 ] + list(reserved.values())  # Add reserved words into tokens' list
 
 # Regular expression rules for simple tokens
-#t_PLUS = r'\+'  # Recognizes a PLUS as a +
-#t_MINUS = r'-'
+t_PLUS = r'\+'  # Recognizes a PLUS as a +
+t_MINUS = r'-'
 t_MULTIPLY = r'\*'
 t_DIVIDE = r'\\'
 t_MOD = r'%'
 #t_EQUALS = r'=='  # '==' must be set before '!='
 t_ASSIGN = r'='
-#t_NOT_EQUAL = r'!='
+t_NOT_EQUAL = r'!='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LCBRACKET = r'{'
@@ -69,7 +69,7 @@ t_RCBRACKET = r'}'
 #t_LBRACKET = r'\['
 #t_RBRACKET = r']'
 #t_LTE = r'<='
-#t_LT = r'<'
+t_LT = r'<'
 #t_GTE = r'>='
 t_GT = r'>'
 t_SEMICOLON = r'\;'
@@ -114,9 +114,9 @@ def t_IDENT(t):
     return t
 
 
-#def t_COMMENT(t):
-#    r'\#.*'
-#    pass  # No return value. Token discarded
+def t_COMMENT(t):
+    r'\#.*'
+    pass  # No return value. Token discarded
 
 
 # Track row

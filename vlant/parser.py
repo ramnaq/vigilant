@@ -3,11 +3,6 @@ import ply.yacc as yacc
 from vlant.lexer import tokens
 
 
-#def p_empty(p):
-#    ''' empty : '''
-#    pass
-
-
 def p_program(p):
     '''
     program : statement
@@ -49,9 +44,7 @@ def p_paramlist(p):
               | STRING IDENT paramlist_
               |
     '''
-    if p[1] is None:
-        pass
-    else:
+    if len(p) == 4:
         p[0] = p[3]
 
 
@@ -71,6 +64,8 @@ def p_statement(p):
     '''
     statement : vardecl SEMICOLON
               | atribstat SEMICOLON
+              | printstat SEMICOLON
+              | readstat SEMICOLON
               | returnstat SEMICOLON
               | ifstat
               | LCBRACKET statelist RCBRACKET
@@ -94,18 +89,18 @@ def p_vardecl(p):
         p[0] = p[3]
 
 
-#def p_printstat(p):
-#    '''
-#    printstat : PRINT expression
-#    '''
-#    p[0] = p[2]
+def p_printstat(p):
+    '''
+    printstat : PRINT expression
+    '''
+    p[0] = p[2]
 
 
-#def p_readstat(p):
-#    '''
-#    readstat : READ lvalue
-#    '''
-#    p[0] = p[2]
+def p_readstat(p):
+    '''
+    readstat : READ lvalue
+    '''
+    p[0] = p[2]
 
 
 def p_int_const_list(p):
@@ -130,7 +125,7 @@ def p_atribstat(p):
     '''
     atribstat : lvalue ASSIGN atribstat_
     '''
-    p[0] = p[1] + p[3]
+    p[0] = [p[1]] + [p[3]]
 
 
 # TODO
@@ -163,10 +158,11 @@ def p_term_(p):
         p[0] = p[2]
 
 
-# TODO + factor | - factor
 def p_unaryexpr(p):
     '''
     unaryexpr : factor
+              | PLUS factor
+              | MINUS factor
     '''
     p[0] = p[1]
 
@@ -212,12 +208,16 @@ def p_expression(p):
         p[0] = p[1] + p[2]
 
 
-# TODO complete with the other rules
 def p_expression_(p):
     '''
     expression_ : GT expression_lte_gte
+                | LT expression_lte_gte
+                | EQUALS numexpression
+                | NOT_EQUAL numexpression
+                |
     '''
-    p[0] = [2]
+    if len(p) == 3:
+        p[0] = [2]
 
 
 def p_expression_lte_gte(p):
@@ -232,12 +232,21 @@ def p_expression_lte_gte(p):
 
 
 
-# TODO: complete with numexpression_
 def p_numexpression(p):
     '''
-    numexpression : term
+    numexpression : term numexpression_
     '''
-    p[0] = p[1]
+    p[0] = [p[1]] + [p[2]]
+
+
+def p_numexpression_(p):
+    '''
+    numexpression_ : PLUS term numexpression_
+                   | MINUS term numexpression_
+                   |
+    '''
+    if len(p) == 4:
+        p[0] = p[2] + p[3]
 
 
 def p_lvalue(p):
@@ -249,13 +258,30 @@ def p_lvalue(p):
 
 # TODO NUM_EXPR_LIST
 def p_lvalue_(p):
-    """
-    lvalue_ :
-    """
-    pass
+    '''
+    lvalue_ : num_expr_list
+            |
+    '''
+    if len(p) == 2:
+        p[0] = p[1]
 
 
-# TODO (NUMEXPRESSION)
+def p_num_expr_list(p):
+    '''
+    num_expr_list : numexpression num_expr_list_
+    '''
+    p[0] = [p[1]] + [p[2]]
+
+
+def p_num_expr_list_(p):
+    '''
+    num_expr_list_ : num_expr_list
+                   |
+    '''
+    if len(p) == 2:
+        p[0] = p[1]
+
+
 def p_factor(p):
     '''
     factor : INT_CONSTANT
@@ -263,12 +289,15 @@ def p_factor(p):
            | STRING_CONSTANT
            | lvalue
            | NULL
+           | LPAREN numexpression RPAREN
     '''
     # this is ugly
     input_type = type(p[1])
     if (input_type is not int) and (input_type is not float):
         if p[1] != 'null':
             p[0] = p[1]
+    elif len(p) == 4:
+        p[0] = p[2]
 
 
 # Error rule for syntax errors
