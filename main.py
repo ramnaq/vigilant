@@ -3,18 +3,19 @@
 # Ramna Sidharta (16100742)
 # Matheus Schaly (18200436)
 
+import sys
 import json
 from vlant.parser import create_parser
 
 
 if __name__ == '__main__':
-    parser = create_parser()
-    while True:
-       try:
-           s = input('calc > ')
-       except EOFError:
-           break
-       if not s: continue
-       result = parser.parse(s)
-       print(result)
+    if len(sys.argv) != 2:
+        print('Usage: python main.py program.lcc')
+        exit(1)
+
+    filename = sys.argv[1]
+    with open(filename, 'r') as f:
+        data = f.read()
+        parser = create_parser()
+        result = parser.parse(data)
 
