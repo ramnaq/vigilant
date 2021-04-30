@@ -325,7 +325,7 @@ def p_factor(p):
     '''
     if len(p) == 2:
         t = type(p[1])
-        if (t is not str) and (t is not float) and (t is not int) and (t is not 'null'):
+        if (t is not str) and (t is not float) and (t is not int) and (t is not None):
             p[0] = p[1]
     else:
         p[0] = p[2]
