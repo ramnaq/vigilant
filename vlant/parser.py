@@ -82,12 +82,11 @@ def p_statement(p):
 
 def p_vardecl(p):
     '''
-    vardecl : INT IDENT int_const_list
-            | FLOAT IDENT float_const_list
-            | STRING IDENT STRING_CONSTANT
+    vardecl : INT IDENT
+            | FLOAT IDENT
+            | STRING IDENT
     '''
-    if p[1] != 'string':
-        p[0] = p[3]
+    pass
 
 
 def p_printstat(p):
@@ -102,24 +101,6 @@ def p_readstat(p):
     readstat : READ lvalue
     '''
     p[0] = p[2]
-
-
-def p_int_const_list(p):
-    '''
-    int_const_list : INT_CONSTANT int_const_list
-                   |
-    '''
-    if len(p) == 3:
-        p[0] = p[2]
-
-
-def p_float_const_list(p):
-    '''
-    float_const_list : FLOAT_CONSTANT float_const_list
-                     |
-    '''
-    if len(p) == 3:
-        p[0] = p[2]
 
 
 def p_atribstat(p):
