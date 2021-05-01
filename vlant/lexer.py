@@ -95,8 +95,9 @@ def t_INT_CONSTANT(t):
 
 
 def t_STRING_CONSTANT(t):
-    r'".*"'
-    t.type = reserved.get(t.value, 'STRING')  # Check for reserved words
+    r'"[^"]*"'
+    val = t.value
+    t.value = str(val[1:len(val)-1]).encode()
     return t
 
 
