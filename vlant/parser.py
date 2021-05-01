@@ -219,7 +219,7 @@ def p_ifstat_(p):
 
 def p_forstat(p):
     '''
-    forstat : FOR LPAREN atribstat COMMA expression COMMA atribstat RPAREN statement
+    forstat : FOR LPAREN atribstat SEMICOLON expression SEMICOLON atribstat RPAREN statement
     '''
     p[0] = p[3] + p[5] + p[7] + p[9]
 
