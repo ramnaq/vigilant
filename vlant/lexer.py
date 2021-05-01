@@ -57,7 +57,7 @@ tokens = [
 t_PLUS = r'\+'  # Recognizes a PLUS as a +
 t_MINUS = r'-'
 t_MULTIPLY = r'\*'
-t_DIVIDE = r'\\'
+t_DIVIDE = r'/'
 t_MOD = r'%'
 t_EQUALS = r'=='  # '==' must be set before '!='
 t_ASSIGN = r'='
