@@ -9,7 +9,7 @@ from vlant.parser import create_parser
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
+    if len(sys.argv) > 3:
         print('Usage: python main.py program.lcc')
         exit(1)
 
@@ -17,5 +17,9 @@ if __name__ == '__main__':
     with open(filename, 'r') as f:
         data = f.read()
         parser = create_parser()
-        result = parser.parse(data, debug=True, tracking=True)
+        if len(sys.argv) == 2:
+            result = parser.parse(data, debug=False, tracking=True)
+        else:
+            result = parser.parse(data, debug=True, tracking=True)
+
 
