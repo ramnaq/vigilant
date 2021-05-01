@@ -48,7 +48,9 @@ def check_arrest(float fine, string has_driving_license, int driving_lincense_po
 {
   if (has_driving_license == "no") {
     print "You are under arrest";
-    return -1;
+    int ret;
+    ret = 0 - 1;
+    return ret;
   }
 
   if (fine >= 10000.0) {
