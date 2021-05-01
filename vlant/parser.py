@@ -229,7 +229,7 @@ def p_statelist(p):
     statelist : statement
               | statement statelist
     '''
-    p[0] = p[1]
+    p[0] = [p[1]]
     if len(p) == 3 and p[2] is not None:
         p[0] += p[2]
 
@@ -323,12 +323,12 @@ def p_factor(p):
            | NULL
            | LPAREN numexpression RPAREN
     '''
-    if len(p) == 2:
-        t = type(p[1])
-        if (t is not str) and (t is not float) and (t is not int) and (t is not None):
-            p[0] = p[1]
-    else:
+    if len(p) == 4:
         p[0] = p[2]
+    else:
+        t = type(p[1])
+        if (t is not str) and (t is not float) and (t is not int) and (t != '"null"'):
+            p[0] = p[1]
 
 
 # Error rule for syntax errors
