@@ -186,7 +186,7 @@ def p_paramlistcall(p):
 
 def p_paramlistcall_(p):
     '''
-    paramlistcall_ : SEMICOLON paramlistcall
+    paramlistcall_ : COMMA paramlistcall
                    |
     '''
     if len(p) == 3:
