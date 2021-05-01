@@ -95,8 +95,7 @@ def change_array()
 
   print "Your final array is:";
   for (i = 0; i < 10; i = i + 1) {
-      print arr[i];
-    }
+    print arr[i];
   }
 
 }
