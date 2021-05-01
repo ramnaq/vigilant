@@ -16,3 +16,6 @@ all:
 	@echo
 	@echo 'Run example3.lcc'
 	${PYTHON} main.py example3.lcc
+	@echo 'Run example4.lcc'
+	${PYTHON} main.py example4.lcc
+

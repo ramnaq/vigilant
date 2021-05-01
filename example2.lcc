@@ -1,32 +1,52 @@
-int count5;
-int count10;
-int count20;
-int count50;
-int count100;
+def main() {
+  int count5;
+  int count10;
+  int count20;
+  int count50;
+  int count100;
 
-int total;
+  int total;
 
-count5 = 0;
-count10 = 0;
-count20 = 0;
-count50 = 0;
-count100 = 0;
+  count5 = 0;
+  count10 = 0;
+  count20 = 0;
+  count50 = 0;
+  count100 = 0;
 
-total = 0;
+  total = 0;
+
+  int um;
+  int cinco;
+  int vinte;
+
+  um = 1;
+  cinco = 5;
+  vinte = 20;
+
+  int void;
+  void = cash_in(um, cinco);
+  void = cash_in(um, vinte);
+
+  int quinze;
+  quinze = 15;
+  void = withdraw(quinze);
+}
 
 def cash_in(int bills, int value) {
   if (value == 5) {
-      count5 = count5 + bills;
+    count5 = count5 + bills;
   } else if (value == 10) {
-      count10 = count10 + bills;
+    count10 = count10 + bills;
   } else if (value == 20) {
-      count20 = count20 + bills;
+    count20 = count20 + bills;
   } else if (value == 50) {
-      count50 = count50 + bills;
+    count50 = count50 + bills;
   } else if (value == 100) {
-      count100 = count100 + bills;
+    count100 = count100 + bills;
   } else {
-      return -1;
+    int ret;
+    ret = 0 - 1;
+    return ret;
   }
 
   total = total + bills*value;
@@ -35,77 +55,77 @@ def cash_in(int bills, int value) {
 
 
 def withdraw(int quantity) {
-    if (quantity > total) {
-        print "Error! Quantity to withdraw is greater than available."
-        return -1;
+  if (quantity > total) {
+    print "Error! Quantity to withdraw is greater than available.";
+    int ret;
+    ret = 0 - 1;
+    return ret;
+  }
+
+  int cashing_out;
+  cashing_out = quantity;
+
+  int i;
+  for (i = 0; null; i = 0) {
+    if (cashing_out <= 0) {
+      break;
+    }
+    int possible;
+    possible = 0;
+    if (cashing_out >= 100) {
+      if (count100 > 0) {
+        cashing_out = cashing_out - 100;
+        count100 = count100 - 1;
+        total = total - 100;
+        possible = 1;
+      }
+    }
+    if (cashing_out >= 50) {
+      if (count50 > 0) {
+        cashing_out = cashing_out - 50;
+        count50 = count50 - 1;
+        total = total - 50;
+        possible = 1;
+      }
+    }
+    if (cashing_out >= 20) {
+      if (count20 > 0) {
+        cashing_out = cashing_out - 20;
+        count20 = count20 - 1;
+        total = total - 20;
+        possible = 1;
+      }
+    }
+    if (cashing_out >= 10) {
+      if (count10 > 0) {
+        cashing_out = cashing_out - 10;
+        count10 = count10 - 1;
+        total = total - 10;
+        possible = 1;
+      }
+    }
+    if (cashing_out >= 5) {
+      if (count5 > 0) {
+        cashing_out = cashing_out - 5;
+        count5 = count5 - 1;
+        total = total - 5;
+        possible = 1;
+      }
+    } else {
+      print "Error! Quantity to withdraw is not multiple of 5.";
+      int ret;
+      ret = 0 - 1;
+      return ret;
     }
 
-    int cashing_out;
-    cashing_out = quantity;
-
-    int i;
-    for (i = 0; null; i = 0) {
-        if (cashing_out <= 0) {
-            break;
-        }
-        int possible = 0;
-        if (cashing_out >= 100) {
-            if (count100 > 0) {
-                cashing_out = cashing_out - 100;
-                count100 = count100 - 1;
-                total = total - 100;
-                possible = 1;
-            }
-        }
-        if (cashing_out >= 50) {
-            if (count50 > 0) {
-                cashing_out = cashing_out - 50;
-                count50 = count50 - 1;
-                total = total - 50;
-                possible = 1;
-            }
-        }
-        if (cashing_out >= 20) {
-            if (count20 > 0) {
-                cashing_out = cashing_out - 20;
-                count20 = count20 - 1;
-                total = total - 20;
-                possible = 1;
-            }
-        }
-        if (cashing_out >= 10) {
-            if (count10 > 0) {
-                cashing_out = cashing_out - 10;
-                count10 = count10 - 1;
-                total = total - 10;
-                possible = 1;
-            }
-        }
-        if (cashing_out >= 5) {
-            if (count5 > 0) {
-                cashing_out = cashing_out - 5;
-                count5 = count5 - 1;
-                total = total - 5;
-                possible = 1;
-            }
-        } else {
-            print "Error! Quantity to withdraw is not multiple of 5.";
-            return -1;
-        }
-
-        if (possible == 0) {
-            print "Sorry, there are not enough bills in the cash machine";
-            return -1;
-        }
+    if (possible == 0) {
+      print "Sorry, there are not enough bills in the cash machine";
+      int ret;
+      ret = 0 - 1;
+      return ret;
     }
+  }
 
-    return quantity;
+  return quantity;
 }
 
-
-def cash_machine_operation() {
-    cash_in(1, 5);
-    cash_in(1, 20);
-
-    withdraw(15);
-}

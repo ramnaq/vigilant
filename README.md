@@ -34,3 +34,10 @@ To run all of them, execute
 ```bash
 $ make all
 ```
+
+Or the "raw command" can be used instead, it's quite simple:
+
+```bash
+$ python main.py your_program.py
+```
+

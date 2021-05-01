@@ -1,4 +1,4 @@
-def arr_sum(int[10] arr, int add_num, int upper_limit, int lower_limit)
+def arr_sum(int arr, int add_num, int upper_limit, int lower_limit)
 {
   int i;
   for (i = 0; i < 10; i = i + 1) {
@@ -12,7 +12,7 @@ def arr_sum(int[10] arr, int add_num, int upper_limit, int lower_limit)
   return arr;
 }
 
-def arr_sub(int[10] arr, int sub_num, int upper_limit, int lower_limit)
+def arr_sub(int arr, int sub_num, int upper_limit, int lower_limit)
 {
   int i;
   for (i = 0; i < 10; i = i + 1) {
@@ -26,7 +26,7 @@ def arr_sub(int[10] arr, int sub_num, int upper_limit, int lower_limit)
   return arr;
 }
 
-def arr_mult(int[10] arr, int mult_num, int upper_limit, int lower_limit)
+def arr_mult(int arr, int mult_num, int upper_limit, int lower_limit)
 {
   int i;
   for (i = 0; i < 10; i = i + 1) {
@@ -43,16 +43,16 @@ def arr_mult(int[10] arr, int mult_num, int upper_limit, int lower_limit)
   return arr;
 }
 
-def arr_div(int[10] arr, int div_num, int upper_limit, int lower_limit)
+def arr_div(int arr, int div_num, int upper_limit, int lower_limit)
 {
   int i;
   for (i = 0; i < 10; i = i + 1) {
-    arr[i] = arr[i] \ div_num;
+    arr[i] = arr[i] / div_num;
   }
   return arr;
 }
 
-def arr_mod(int[10] arr, int mod_num, int upper_limit, int lower_limit)
+def arr_mod(int arr, int mod_num, int upper_limit, int lower_limit)
 {
   int i;
   for (i = 0; i < 10; i = i + 1) {
@@ -95,8 +95,7 @@ def change_array()
 
   print "Your final array is:";
   for (i = 0; i < 10; i = i + 1) {
-      print arr[i];
-    }
+    print arr[i];
   }
 
 }
