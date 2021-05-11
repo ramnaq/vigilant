@@ -2,6 +2,7 @@ import ply.yacc as yacc
 
 from vlant.expr import BinOp
 from vlant.lexer import tokens
+from vlant.statements import For
 from vlant.values import Var
 
 
@@ -22,7 +23,7 @@ def p_funclist(p):
              | funcdef
     '''
     if len(p) == 3:
-        p[0] = [p[1]] + [p[2]]
+        p[0] = p[1] + p[2]
     else:
         p[0] = p[1]
 
@@ -233,7 +234,7 @@ def p_forstat(p):
     '''
     forstat : FOR LPAREN atribstat SEMICOLON expression SEMICOLON atribstat RPAREN statement
     '''
-    p[0] = p[3] + p[5] + p[7] + p[9]
+    p[0] = For(p[3], p[5], p[7], p[9])
 
 
 def p_statelist(p):
