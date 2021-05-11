@@ -45,9 +45,9 @@ tokens = [
     'RCBRACKET',
     'LBRACKET',
     'RBRACKET',
-#    'LTE',  # 'less than or equal'
+    'LTE',  # 'less than or equal'
     'LT',
-#    'GTE',
+    'GTE',
     'GT',
     'SEMICOLON',
     'COMMA'
@@ -68,9 +68,9 @@ t_LCBRACKET = r'{'
 t_RCBRACKET = r'}'
 t_LBRACKET = r'\['
 t_RBRACKET = r']'
-#t_LTE = r'<='
+t_LTE = r'<='
 t_LT = r'<'
-#t_GTE = r'>='
+t_GTE = r'>='
 t_GT = r'>'
 t_SEMICOLON = r'\;'
 t_COMMA = r','
