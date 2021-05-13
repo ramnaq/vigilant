@@ -22,4 +22,8 @@ if __name__ == '__main__':
         else:
             result = parser.parse(data, debug=True, tracking=True)
 
-        result.validate()
+        if result is not list:
+            result = [result]
+
+        for node in result:
+            node.validate()

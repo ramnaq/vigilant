@@ -24,9 +24,9 @@ def p_funclist(p):
              | funcdef
     """
     if len(p) == 3:
-        p[0] = p[1] + p[2]
+        p[0] = [p[1]] + p[2]
     else:
-        p[0] = p[1]
+        p[0] = [p[1]]
 
 
 def p_funcdef(p):
