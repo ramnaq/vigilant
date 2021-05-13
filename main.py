@@ -22,4 +22,4 @@ if __name__ == '__main__':
         else:
             result = parser.parse(data, debug=True, tracking=True)
 
-
+        result.validate()

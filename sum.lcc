@@ -1,0 +1,10 @@
+def main() {
+  int a;
+  a = 1;
+
+  float b;
+  b = 1.0;
+
+  int sum;
+  sum = 3 + 5 * 7 * 7;
+}

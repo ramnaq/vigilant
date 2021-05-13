@@ -8,5 +8,5 @@ class Var(Node):
         self.name = name
         self.dims = dims
 
-    def validate(self, scope):
+    def validate(self, scope=None):
         pass
