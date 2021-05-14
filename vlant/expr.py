@@ -25,11 +25,11 @@ class BinOp(Node):
         b_type = self.right.type
         if self.left.type != self.right.type:
             raise IncompatibleTypesException(f'TypeError: incompatible types '
-                                             f'{a_type} {self.op} {b_type}')
+                                             f'{a_type} {self.op} {b_type}!')
         if a_type == str or b_type == str:
             if not self.valid_str_op():
                 msg = f'TypeError: unsupported operand "{self.op}" for type ' \
-                      f'STRING_CONSTANT'
+                      f'STRING_CONSTANT!'
                 raise UnsupportedOperandException(msg)
 
         self.type = a_type

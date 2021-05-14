@@ -127,7 +127,7 @@ def t_newline(t):
 
 
 def t_error(t):
-    raise SyntaxError('Error at line %d, position %d' % (t.lineno, t.lexpos))
+    raise SyntaxError('Error at line %d, position %d.' % (t.lineno, t.lexpos))
 
 
 lexer = lex.lex()

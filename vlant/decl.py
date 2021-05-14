@@ -31,6 +31,6 @@ class VarDecl(Node):
 
     def validate(self, scope):
         if self.name in scope.current:
-            raise VarDeclException(f'Variable {self.name} already declared')
+            raise VarDeclException(f'Variable "{self.name}" already declared!')
 
         scope[self.name] = self

@@ -36,7 +36,7 @@ class If(Node):
         self.cond.validate(scope)
 
         if self.cond.type == 'STRING':
-            raise Exception('Type error: "if" condition cant be of type STRING')
+            raise Exception('Type error: "if" condition cant be of type STRING!')
 
         # If scope
         with scope() as scope_:
