@@ -28,12 +28,14 @@ class BinOp(Node):
                                              f'{a_type} {self.op} {b_type}')
         if a_type == str or b_type == str:
             if not self.valid_str_op():
-                raise UnsupportedOperandException(
-                    f'TypeError: unsupported operand {self.op.value} for type str')
-        pass
+                msg = f'TypeError: unsupported operand "{self.op}" for type ' \
+                      f'STRING_CONSTANT'
+                raise UnsupportedOperandException(msg)
+
+        self.type = a_type
 
     def valid_str_op(self):
-        return (self.op.value == '+') or (self.op.value == '*')
+        return (self.op == '+') or (self.op == '*')
 
 
 class Literal(Node):
@@ -42,7 +44,7 @@ class Literal(Node):
         self.value = value
 
     def validate(self, scope=None):
-        pass
+        self.type = type(self.value)
 
 
 class FuncCall(Node):
