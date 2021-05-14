@@ -35,9 +35,16 @@ To run all of them, execute
 $ make all
 ```
 
+Or, to run each one execute
+
+```bash
+$ make ex1
+$ make ex2
+$ make ex3
+```
+
 Or the "raw command" can be used instead, it's quite simple:
 
 ```bash
 $ python main.py your_program.py
 ```
-
