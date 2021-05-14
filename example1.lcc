@@ -5,6 +5,8 @@ def calculate_fine(string has_driving_license, int alcohol_level, int speed, int
 
   if (has_driving_license == "no") {
     fine = fine + 500.0;
+  } else {
+    test = 1;
   }
 
   if (alcohol_level == 2) {

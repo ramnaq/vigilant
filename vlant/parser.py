@@ -1,9 +1,9 @@
 import ply.yacc as yacc
 
 from vlant.decl import FuncDecl, VarDecl
-from vlant.expr import BinOp, Literal
+from vlant.expr import BinOp, Literal, FuncCall
 from vlant.lexer import tokens
-from vlant.statements import For, Assignment, Block
+from vlant.statements import For, Assignment, Block, If, Return
 from vlant.values import Var
 
 
@@ -33,7 +33,7 @@ def p_funcdef(p):
     """
     funcdef : DEF IDENT LPAREN paramlist RPAREN LCBRACKET statelist RCBRACKET
     """
-    p[0] = FuncDecl(p[4], p[7])
+    p[0] = FuncDecl(p[2], p[7], params=p[4])
 
 
 def p_paramlist(p):
@@ -45,6 +45,8 @@ def p_paramlist(p):
     """
     if len(p) == 4:
         p[0] = p[3]
+    else:
+        p[0] = []
 
 
 def p_paramlist_(p):
@@ -128,8 +130,8 @@ def p_allocexpression_(p):
                      | FLOAT num_expr_list
                      | STRING STRING_CONSTANT
     """
-    if p[1] != 'string':
-        p[0] = p[2]
+    if p[1] != 'STRING':
+        p[0] = VarDecl(p[1], name='?', dims=p[2])
 
 
 # TODO check term_ or term
@@ -162,7 +164,7 @@ def p_funccall(p):
     """
     funccall : IDENT LPAREN paramlistcall RPAREN
     """
-    p[0] = p[3]
+    p[0] = FuncCall(p[2], p[3])
 
 
 def p_paramlistcall(p):
@@ -188,19 +190,22 @@ def p_returnstat(p):
     returnstat : RETURN IDENT
                | RETURN
     """
-    ...
+    if len(p) == 3:
+        p[0] = Return(Var(p[2]))
+    else:
+        p[0] = Return()
 
 
 def p_ifstat(p):
     """
-    ifstat : IF LPAREN expression RPAREN statement ifstat_
+    ifstat : IF LPAREN expression RPAREN statement elsestat_
     """
-    p[0] = [p[3]] + [p[5]] + [p[6]]
+    p[0] = If(cond=p[3], block=p[5], else_block=p[6])
 
 
-def p_ifstat_(p):
+def p_elsestat_(p):
     """
-    ifstat_ : ELSE statement
+    elsestat_ : ELSE statement
             |
     """
     if len(p) == 3:
@@ -253,7 +258,6 @@ def p_numexpression(p):
         p[0] = p[1]
 
 
-# TODO / WARN: ambiguity?
 def p_lvalue(p):
     """
     lvalue : IDENT num_expr_list
@@ -267,18 +271,13 @@ def p_lvalue(p):
 
 def p_num_expr_list(p):
     """
-    num_expr_list : LBRACKET numexpression RBRACKET num_expr_list_
+    num_expr_list : LBRACKET numexpression RBRACKET num_expr_list
+                  | LBRACKET numexpression RBRACKET
     """
-    p[0] = p[1] + [p[2]]
-
-
-def p_num_expr_list_(p):
-    """
-    num_expr_list_ : num_expr_list
-                   |
-    """
-    if len(p) == 2:
-        p[0] = p[1]
+    if len(p) == 5:
+        p[0] = [p[2]] + p[4]
+    else:
+        p[0] = [p[2]]
 
 
 def p_factor(p):

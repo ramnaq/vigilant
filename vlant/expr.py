@@ -8,6 +8,7 @@ lcc_to_py = {
     'STRING': str
 }
 
+
 class BinOp(Node):
 
     def __init__(self, left, op, right):
@@ -39,6 +40,16 @@ class Literal(Node):
 
     def __init__(self, value):
         self.value = value
+
+    def validate(self, scope=None):
+        pass
+
+
+class FuncCall(Node):
+    def __init__(self, name, params=[]):
+        super(FuncCall, self).__init__()
+        self.name = name
+        self.params = params
 
     def validate(self, scope=None):
         pass

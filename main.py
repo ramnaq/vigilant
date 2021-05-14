@@ -4,9 +4,8 @@
 # Matheus Schaly (18200436)
 
 import sys
-import json
-from vlant.parser import create_parser
 
+from vlant.parser import create_parser
 
 if __name__ == '__main__':
     if len(sys.argv) > 3:
@@ -22,7 +21,7 @@ if __name__ == '__main__':
         else:
             result = parser.parse(data, debug=True, tracking=True)
 
-        if result is not list:
+        if type(result) is not list:
             result = [result]
 
         for node in result:
