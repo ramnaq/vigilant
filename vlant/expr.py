@@ -17,9 +17,9 @@ class BinOp(Node):
         self.op = op
         self.right = right
 
-    def validate(self, scope=None):
-        self.left.validate()
-        self.right.validate()
+    def validate(self, scope):
+        self.left.validate(scope)
+        self.right.validate(scope)
 
         a_type = self.left.type
         b_type = self.right.type
@@ -38,20 +38,11 @@ class BinOp(Node):
         return (self.op == '+') or (self.op == '*')
 
 
-class Literal(Node):
-
-    def __init__(self, value):
-        self.value = value
-
-    def validate(self, scope=None):
-        self.type = type(self.value)
-
-
 class FuncCall(Node):
     def __init__(self, name, params=[]):
         super(FuncCall, self).__init__()
         self.name = name
         self.params = params
 
-    def validate(self, scope=None):
+    def validate(self, scope):
         pass

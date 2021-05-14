@@ -6,7 +6,7 @@ class Node(ABC):
     _type = None
 
     @abstractmethod
-    def validate(self, scope=None):
+    def validate(self, scope):
         pass
 
     @property

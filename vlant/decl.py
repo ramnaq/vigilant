@@ -1,3 +1,4 @@
+from vlant.errors import VarDeclException
 from vlant.expr import lcc_to_py
 from vlant.node import Node
 
@@ -12,12 +13,12 @@ class FuncDecl(Node):
             params = []
         self.params = params
 
-    def validate(self, scope=None):
+    def validate(self, scope):
         for statement in self.block:
-            statement.validate()
+            statement.validate(scope)
 
         for p in self.params:
-            p.validate()
+            p.validate(scope)
 
 
 class VarDecl(Node):
@@ -28,6 +29,8 @@ class VarDecl(Node):
         self.name = name
         self.dims = dims
 
-    def validate(self, scope=None):
-        # TODO: check if variable was not declared before
-        pass
+    def validate(self, scope):
+        if self.name in scope.current:
+            raise VarDeclException(f'Variable {self.name} already declared')
+
+        scope[self.name] = self

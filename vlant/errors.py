@@ -6,3 +6,11 @@ class IncompatibleTypesException(Exception):
 
 class UnsupportedOperandException(Exception):
     pass
+
+
+class VarDeclException(Exception):
+    pass
+
+
+class ArrayAccessException(Exception):
+    pass

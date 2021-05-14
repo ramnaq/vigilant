@@ -1,10 +1,10 @@
 import ply.yacc as yacc
 
 from vlant.decl import FuncDecl, VarDecl
-from vlant.expr import BinOp, Literal, FuncCall
-from vlant.lexer import tokens
-from vlant.statements import For, Assignment, Block, If, Return
-from vlant.values import Var
+from vlant.expr import BinOp, FuncCall
+from vlant.lexer import tokens  # Do not remove, PLY uses this
+from vlant.statements import For, Assignment, Block, If, Return, Main
+from vlant.values import Var, Literal
 
 
 def p_program(p):
@@ -13,9 +13,9 @@ def p_program(p):
             | funclist
     """
     if p[1] is None:
-        ...
+        Main()
     else:
-        p[0] = p[1]
+        p[0] = Main(p[1])
 
 
 def p_funclist(p):
@@ -292,7 +292,7 @@ def p_factor(p):
     if len(p) == 4:
         p[0] = p[2]
     else:
-        if type(p[1]) is type(Var):
+        if type(p[1]) is Var:
             p[0] = p[1]
         else:
             p[0] = Literal(p[1])
