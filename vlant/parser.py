@@ -6,6 +6,12 @@ from vlant.lexer import tokens  # Do not remove, PLY uses this
 from vlant.statements import For, Assignment, Block, If, Return, Main
 from vlant.values import Var, Literal
 
+precedence = (
+    ('left', 'LTE', 'LT', 'GTE', 'GT', 'EQUALS', 'NOT_EQUAL'),
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'MULTIPLY', 'DIVIDE', 'MOD')
+)
+
 
 def p_program(p):
     """
