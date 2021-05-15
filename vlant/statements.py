@@ -22,7 +22,11 @@ class For(Node):
         self.block = block
 
     def validate(self, scope):
-        pass
+        with scope() as scope_:
+            self.decl.validate(scope_)
+            cond = If(self.cond, self.block, else_block=[])
+            cond.validate(scope_)
+            self.step.validate(scope_)
 
 
 class If(Node):

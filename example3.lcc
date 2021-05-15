@@ -4,7 +4,7 @@ def arr_sum(int arr, int add_num, int upper_limit, int lower_limit)
   for (i = 0; i < 10; i = i + 1) {
     if (arr[i] + add_num > upper_limit) {
       print "There was a break, in arr_sum, due to the upper_limit threshold";
-      break;
+      return; #break;
     } else {
       arr[i] = arr[i] + add_num;
     }
@@ -18,7 +18,7 @@ def arr_sub(int arr, int sub_num, int upper_limit, int lower_limit)
   for (i = 0; i < 10; i = i + 1) {
     if (arr[i] - sub_num < lower_limit) {
       print "There was a break, in arr_sub, due to the lower_limit threshold";
-      break;
+      return; #break;
     } else {
       arr[i] = arr[i] - sub_num;
     }
@@ -32,10 +32,10 @@ def arr_mult(int arr, int mult_num, int upper_limit, int lower_limit)
   for (i = 0; i < 10; i = i + 1) {
     if (arr[i] * mult_num > upper_limit) {
       print "There was a break, in arr_mult, due to the upper_limit threshold";
-      break;
+      return; #break;
     } else if (arr[i] * mult_num < lower_limit) {
       print "There was a break, in arr_mult, due to the lower_limit threshold";
-      break;
+      return; #break;
     } else {
       arr[i] = arr[i] * mult_num;
     }
@@ -66,8 +66,8 @@ def change_array()
   int arr;
   arr = new int[10];
 
-  print("Change all the elements of your array using basic math operations");
-  print("Your array won't have values above or below the limit variables");
+  print "Change all the elements of your array using basic math operations";
+  print "Your array won't have values above or below the limit variables";
 
   int add_num;
   int sub_num;

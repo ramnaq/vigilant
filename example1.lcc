@@ -6,7 +6,7 @@ def calculate_fine(string has_driving_license, int alcohol_level, int speed, int
   if (has_driving_license == "no") {
     fine = fine + 500.0;
   } else {
-    test = 1;
+    fine = 1;
   }
 
   if (alcohol_level == 2) {
@@ -31,16 +31,16 @@ def calculate_fine(string has_driving_license, int alcohol_level, int speed, int
     fine = fine + 62.75;
   }
 
-  if (n_passangers == 2) {
-    fine = fine * 2;
-  } else if (n_passangers == 3) {
-    fine = fine * 3;
-  } else if (n_passangers == 4) {
-    fine = fine * 4;
-  } else if (n_passangers == 5) {
-    fine = fine * 5;
+  if (n_passengers == 2) {
+    fine = fine * 2.0;
+  } else if (n_passengers == 3) {
+    fine = fine * 3.0;
+  } else if (n_passengers == 4) {
+    fine = fine * 4.0;
+  } else if (n_passengers == 5) {
+    fine = fine * 5.0;
   } else {
-    fine = fine * 10;
+    fine = fine * 10.0;
   }
 
   return fine;
@@ -85,7 +85,7 @@ def check_arrest(float fine, string has_driving_license, int driving_lincense_po
   } else if (fine >= 500.0) {
     print "You lost 1 point";
     driving_lincense_points = driving_lincense_points - 1;
-  } else if (fine > 0) {
+  } else if (fine > 0.0) {
     print "You didn't lose any points, but have to pay the fine";
   } else {
     print "You didn't lose any points, and don't have to pay any fine";

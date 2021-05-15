@@ -14,11 +14,11 @@ class Var(Node):
         if var is None:
             raise VarDeclException(f'NameError: variable "{self.name}" not '
                                    f'declared!')
-        if len(var.dims) < len(self.dims):
-            raise ArrayAccessException(
-                f'Trying to access bigger array dimensions! Var {self.name} has'
-                f' {len(self.dims)} dimensions, but trying to access'
-                f'  {len(var.dims)}.')
+        # if len(var.dims) < len(self.dims):
+        #     raise ArrayAccessException(
+        #         f'Trying to access bigger array dimensions! Var "{self.name}"'
+        #         f' has {len(var.dims)} dimensions, but trying to access'
+        #         f'  {len(self.dims)}.')
         self.type = var.type
 
 

@@ -14,11 +14,18 @@ class FuncDecl(Node):
         self.params = params
 
     def validate(self, scope):
-        for statement in self.block:
-            statement.validate(scope)
+        if self.name in scope.current:
+            raise VarDeclException(
+                f'NameError: function {self.name} already declared!')
 
-        for p in self.params:
-            p.validate(scope)
+        scope[self.name] = self
+
+        # Validate function block and args
+        with scope() as scop:
+            for arg in self.params:
+                arg.validate(scop)
+            for statement in self.block:
+                statement.validate(scope)
 
 
 class VarDecl(Node):

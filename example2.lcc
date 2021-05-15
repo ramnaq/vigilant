@@ -24,15 +24,15 @@ def main() {
   vinte = 20;
 
   int void;
-  void = cash_in(um, cinco);
-  void = cash_in(um, vinte);
+  void = cash_in(um, cinco, count5, count10, count20, count50, count100, total);
+  void = cash_in(um, vinte, count5, count10, count20, count50, count100, total);
 
   int quinze;
   quinze = 15;
-  void = withdraw(quinze);
+  void = withdraw(quinze, count5, count10, count20, count50, count100, total);
 }
 
-def cash_in(int bills, int value) {
+def cash_in(int bills, int value, int count5, int count10, int count20, int count50, int count100, int total) {
   if (value == 5) {
     count5 = count5 + bills;
   } else if (value == 10) {
@@ -54,7 +54,7 @@ def cash_in(int bills, int value) {
 }
 
 
-def withdraw(int quantity) {
+def withdraw(int quantity, int count5, int count10, int count20, int count50, int count100, int total) {
   if (quantity > total) {
     print "Error! Quantity to withdraw is greater than available.";
     int ret;
@@ -68,7 +68,7 @@ def withdraw(int quantity) {
   int i;
   for (i = 0; null; i = 0) {
     if (cashing_out <= 0) {
-      break;
+      return;  # break
     }
     int possible;
     possible = 0;

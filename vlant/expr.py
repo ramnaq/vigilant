@@ -35,7 +35,7 @@ class BinOp(Node):
         self.type = a_type
 
     def valid_str_op(self):
-        return (self.op == '+') or (self.op == '*')
+        return self.op in ['+', '*', '==']
 
 
 class FuncCall(Node):
